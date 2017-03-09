@@ -5,6 +5,13 @@ import time
 import win32gui
 import urllib
 from win32com.client import gencache
+
+try:
+    from  urllib.parse import unquote
+except ImportError:
+	#Python 2.7 and before
+	from urllib import unquote
+
  
 ########################################################################
 class MyListCtrl(wx.ListCtrl):
@@ -93,7 +100,9 @@ class FileHunter(wx.Frame):
 				loc = w.LocationURL
 		if loc:
 			outdir = loc.split('///')[1]
-			outdir = urllib.unquote(outdir)
+			#print (outdir)
+			
+			outdir = unquote(outdir)
 		print (outdir)
 		#got what we need, now download to outfol
 		#if outdir and os.path.isdir(outdir):
